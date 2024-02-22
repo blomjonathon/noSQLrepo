@@ -22,6 +22,25 @@ const thoughtSchema = new Schema({
   thoughtSchema.virtual('reactionCount').get(function() {
     return this.reactions.length;
   });
+
+  const reactionSchema = new Schema({
+    reactionBody: {
+      type: String,
+      required: true
+    },
+    username: {
+      type: String,
+      required: true
+    },
+    createdAt: {
+      type: Date,
+      default: Date.now
+    }
+  });
+
+  thoughtSchema.virtual('formattedCreatedAt').get(function() {
+    return this.createdAt.toDateString();
+  });
   
   const Thought = mongoose.model('Thought', thoughtSchema);
   
